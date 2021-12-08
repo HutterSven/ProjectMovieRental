@@ -26,11 +26,11 @@ public class Address {
 	public void setPostal(int postal) {
 		this.postal = postal;
 	}
-	@Column(name="Street")
+	@Column(name="street")
 	private String street;
-	@Column(name="City")
+	@Column(name="city")
 	private String city;
-	@Column(name="Postal")
+	@Column(name="postal")
 	private int postal;
 	
 

@@ -19,9 +19,9 @@ public class Person {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private long id;
-	@Column(name="nom")
+	@Column(name="lastname")
 	private String lastname;
-	@Column(name="prenom")
+	@Column(name="firstname")
 	private String firstname;
 	
 	public Address getAddress() {

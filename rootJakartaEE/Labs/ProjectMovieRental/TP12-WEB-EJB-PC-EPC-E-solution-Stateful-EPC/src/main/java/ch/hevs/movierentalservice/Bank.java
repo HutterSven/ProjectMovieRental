@@ -1,4 +1,4 @@
-package ch.hevs.bankservice;
+package ch.hevs.movierentalservice;
 
 import java.util.List;
 
