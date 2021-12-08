@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,8 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Client")
-public class Client {
+@Table(name="Person")
+public class Person {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -22,10 +23,16 @@ public class Client {
 	private String lastname;
 	@Column(name="prenom")
 	private String firstname;
+	
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
+	}
 
-	// relations
-	@OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)//@JoinColumn(name = "FK_CLIENT")
-	private List<Account> accounts;
+	@Embedded
+	private Address address;
 	
 	
 	// id
@@ -51,20 +58,11 @@ public class Client {
 	public void setLastname(String lastname) {
 		this.lastname = lastname;
 	}
-
-	// accounts (From Account)
-	public List<Account> getAccounts() {
-		return accounts;
-	}
-	public void setAccounts(List<Account> accounts) {
-		this.accounts = accounts;
-	}
-
 	
 	// constructors
-	public Client() {
+	public Person() {
 	}
-	public Client(String firstname, String lastname) {
+	public Person(String firstname, String lastname) {
 		this.lastname = lastname;
 		this.firstname = firstname;
 	}
