@@ -8,9 +8,9 @@ import javax.faces.event.ValueChangeEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-import ch.hevs.businessobject.Account;
-import ch.hevs.businessobject.Client;
-import ch.hevs.movierentalservice.Bank;
+import ch.hevs.businessobject.Movie;
+import ch.hevs.businessobject.Renter;
+import ch.hevs.movierentalservice.MovieRentalStore;
 
 /**
  * TransferBean.java
@@ -19,72 +19,37 @@ import ch.hevs.movierentalservice.Bank;
 
 public class TransferBean
 {
-    private List<Client> clients;
-    private List<String> clientNames;
-    private List<String> sourceAccountDescriptions;
-    private List<String> destinationAccountDescriptions;
-    private String sourceAccountDescription;
-    private String destinationAccountDescription;
-    private String sourceClientName;
-    private String destinationClientName;
+    private List<Renter> renters;
+    private List<String> renterNames;
     private String transactionResult;
-    private int transactionAmount;
-    private Bank bank;
+    private Movie movie;
+    private Store store;
+    private Renter renter;
     
     @PostConstruct
     public void initialize() throws NamingException {
     	
     	// use JNDI to inject reference to bank EJB
     	InitialContext ctx = new InitialContext();
-		bank = (Bank) ctx.lookup("java:global/TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT/BankBean!ch.hevs.bankservice.Bank");
+		store = (Store) ctx.lookup("java:global/TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT/MovieRentalStoreBean!ch.hevs.movierentalservice.Movie");
 			
     	// get clients
-		List<Client> clientList = bank.getClients();
-		this.clientNames = new ArrayList<String>();
-		for (Client client : clientList) {
-			this.clientNames.add(client.getLastname());
+		List<Renter> renters = ;
+		this.renterNames = new ArrayList<String>();
+		for (Renter renter : renters) {
+			this.renterNames.add(renter.getLastname());
 		}
 		
 		// initialize account descriptions
-		this.sourceAccountDescriptions = new ArrayList<String>();
-		this.destinationAccountDescriptions = new ArrayList<String>();
-		List<Account> accounts = bank.getAccountListFromClientLastname(clientList.get(0).getLastname());
-		this.sourceAccountDescriptions.add(accounts.get(0).getDescription());
-		this.destinationAccountDescriptions.add(accounts.get(0).getDescription());
+		List<Renter> accounts = bank.getAccountListFromClientLastname(clientList.get(0).getLastname());
     }
     
     // transactionAmount
-    public int getTransactionAmount () {
-    	return transactionAmount;
+    public Movie getMovieRented () {
+    	return movie;
     }
-    public void setTransactionAmount (final int transactionAmount) {
-    	this.transactionAmount=transactionAmount;
-    }
-    
-    // sourceClientName
-    public String getSourceClientName () {
-    	return sourceClientName;
-    }
-    public void setSourceClientName (final String sourceClientName) {
-    	this.sourceClientName=sourceClientName;
-    }
-    
-    // sourceAccountDescriptions
-    public List<String> getSourceAccountDescriptions () {
-    	return sourceAccountDescriptions;
-    }
-    
-    // destinationAccountDescriptions
-    public List<String> getDestinationAccountDescriptions () {
-    	return destinationAccountDescriptions;
-    }
-    
-    // destinationClientName
-    public String getDestinationClientName () {
-    	return destinationClientName;
-    }
-    public void setDestinationClientName (final String destinationClientName) {
-    	this.destinationClientName=destinationClientName;
+    public void setMovieRented (final Movie movie) {
+    	this.movie = movie;
     }
     
     // transactionResult
@@ -95,22 +60,6 @@ public class TransferBean
 		this.transactionResult = transactionResult;
 	}
     
-	// sourceAccountDescription
-    public String getSourceAccountDescription() {
-		return sourceAccountDescription;
-	}
-	public void setSourceAccountDescription(String sourceAccountDescription) {
-		this.sourceAccountDescription = sourceAccountDescription;
-	}
-
-	// destinationAccountDescription
-	public String getDestinationAccountDescription() {
-		return destinationAccountDescription;
-	}
-	public void setDestinationAccountDescription(
-			String destinationAccountDescription) {
-		this.destinationAccountDescription = destinationAccountDescription;
-	}
 
 	public void updateSourceAccounts(ValueChangeEvent event) {
     	this.sourceClientName = (String)event.getNewValue();
@@ -130,15 +79,6 @@ public class TransferBean
 			this.destinationAccountDescriptions.add(account.getDescription());
 		}
     }
-
-    public List<Client> getClients() {
-		return clients;
-    }
-    
-    public List<String> getClientNames() {
-    	return clientNames;
-    }
-    
     
     public String performTransfer() {
     	
