@@ -10,6 +10,7 @@ import javax.naming.NamingException;
 
 import ch.hevs.businessobject.Movie;
 import ch.hevs.businessobject.Renter;
+import ch.hevs.businessobject.Store;
 import ch.hevs.movierentalservice.MovieRentalStore;
 
 /**
@@ -33,15 +34,18 @@ public class TransferBean
     	InitialContext ctx = new InitialContext();
 		store = (Store) ctx.lookup("java:global/TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT/MovieRentalStoreBean!ch.hevs.movierentalservice.Movie");
 			
-    	// get clients
-		List<Renter> renters = ;
+    	// get renters
+		renters = new ArrayList<Renter>();
 		this.renterNames = new ArrayList<String>();
 		for (Renter renter : renters) {
 			this.renterNames.add(renter.getLastname());
 		}
 		
-		// initialize account descriptions
-		List<Renter> accounts = bank.getAccountListFromClientLastname(clientList.get(0).getLastname());
+		// get Store
+		
+		store = new Store();
+		
+		
     }
     
     // transactionAmount
@@ -62,43 +66,43 @@ public class TransferBean
     
 
 	public void updateSourceAccounts(ValueChangeEvent event) {
-    	this.sourceClientName = (String)event.getNewValue();
-    	
-	    List<Account> accounts = bank.getAccountListFromClientLastname(this.sourceClientName);
-	    this.sourceAccountDescriptions = new ArrayList<String>();
-		for (Account account : accounts) {
-			this.sourceAccountDescriptions.add(account.getDescription());
-		}
+//    	this.sourceClientName = (String)event.getNewValue();
+//    	
+//	    List<Account> accounts = bank.getAccountListFromClientLastname(this.sourceClientName);
+//	    this.sourceAccountDescriptions = new ArrayList<String>();
+//		for (Account account : accounts) {
+//			this.sourceAccountDescriptions.add(account.getDescription());
+//		}
     }
 	public void updateDestinationAccounts(ValueChangeEvent event) {
-    	this.destinationClientName = (String)event.getNewValue();
-			
-	    List<Account> accounts = bank.getAccountListFromClientLastname(this.destinationClientName);
-	    this.destinationAccountDescriptions = new ArrayList<String>();
-		for (Account account : accounts) {
-			this.destinationAccountDescriptions.add(account.getDescription());
-		}
+//    	this.destinationClientName = (String)event.getNewValue();
+//			
+//	    List<Account> accounts = bank.getAccountListFromClientLastname(this.destinationClientName);
+//	    this.destinationAccountDescriptions = new ArrayList<String>();
+//		for (Account account : accounts) {
+//			this.destinationAccountDescriptions.add(account.getDescription());
+//		}
     }
     
     public String performTransfer() {
     	
-    	try {
-			if (sourceClientName.equals(destinationClientName) && sourceAccountDescription.equals(destinationAccountDescription)) {
-				
-				this.transactionResult="Error: accounts are identical!";
-			} 
-			else {
-				
-				Account compteSrc = bank.getAccount(sourceAccountDescription, sourceClientName);
-				Account compteDest = bank.getAccount(destinationAccountDescription, destinationClientName);
-	
-				// Transfer
-				bank.transfer(compteSrc, compteDest, transactionAmount);
-				this.transactionResult="Success!";
-			}
-    	} catch (Exception e) {
-    		e.printStackTrace();
-    	}
+//    	try {
+//			if (sourceClientName.equals(destinationClientName) && sourceAccountDescription.equals(destinationAccountDescription)) {
+//				
+//				this.transactionResult="Error: accounts are identical!";
+//			} 
+//			else {
+//				
+//				Account compteSrc = bank.getAccount(sourceAccountDescription, sourceClientName);
+//				Account compteDest = bank.getAccount(destinationAccountDescription, destinationClientName);
+//	
+//				// Transfer
+//				bank.transfer(compteSrc, compteDest, transactionAmount);
+//				this.transactionResult="Success!";
+//			}
+//    	} catch (Exception e) {
+//    		e.printStackTrace();
+//    	}
 
 		return "showTransferResult"; //  the String value returned represents the outcome used by the navigation handler to determine what page to display next.
 	} 

@@ -8,8 +8,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
-import ch.hevs.businessobject.Account;
-import ch.hevs.businessobject.Client;
 import ch.hevs.businessobject.Movie;
 import ch.hevs.businessobject.Renter;
 import ch.hevs.businessobject.Store;
@@ -22,6 +20,7 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 
 	@Override
 	public Renter getRenter(Renter renter) {
+		return renter;
 		// TODO Auto-generated method stub
 		
 //		Query query = em.createQuery("FROM Renter a WHERE a.lastName=:lastName AND a.owner.lastname=:lastname");
@@ -35,6 +34,7 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 
 	@Override
 	public List<Movie> getRentersMovies(String lastname) {
+		return null;
 
 //		return (List<Account>) em.createQuery("SELECT c.accounts FROM Client c where c.lastname=:lastname").setParameter("lastname", lastname).getResultList();
 	}
@@ -54,11 +54,13 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 
 	@Override
 	public List<Renter> getRenters() {
+		return null;
 //		return em.createQuery("FROM Client").getResultList();
 	}
 
 	@Override
 	public Renter getClient(long renterId) {
+		return null;
 //		return (Client) em.createQuery("FROM Client c where c.id=:id").setParameter("id", clientid).getSingleResult();
 	}
 }
