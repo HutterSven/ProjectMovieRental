@@ -1,6 +1,7 @@
 package ch.hevs.movierentalservice;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.ejb.Stateful;
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 import javax.persistence.Query;
 
+import ch.hevs.businessobject.Employee;
 import ch.hevs.businessobject.Movie;
 import ch.hevs.businessobject.Renter;
 import ch.hevs.businessobject.Store;
@@ -15,52 +17,77 @@ import ch.hevs.businessobject.Store;
 @Stateful
 public class MovieRentalStoreBean implements MovieRentalStore {
 	
-	@PersistenceContext(name = "BankPU", type=PersistenceContextType.EXTENDED)
+	@PersistenceContext(name = "MovieRentalPU", type=PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
 	@Override
-	public Renter getRenter(Renter renter) {
+	public Renter getRenter(String lastNameRenter, String firstNameRenter) {
+		Query query = em.createQuery("FROM Renter r WHERE r.lastName=:lastName AND r.firstName=:firstName");
+		query.setParameter("firstName", firstNameRenter);
+		query.setParameter("lastName", lastNameRenter);
+		
+		Renter renter = (Renter) query.getSingleResult();
+		System.out.println("ID renter called from getRenter(): "+renter.getId());
 		return renter;
-		// TODO Auto-generated method stub
-		
-//		Query query = em.createQuery("FROM Renter a WHERE a.lastName=:lastName AND a.owner.lastname=:lastname");
-//		query.setParameter("description", accountDescription);
-//		query.setParameter("lastname", lastnameOwner);
-//		
-//		Account account = (Account) query.getSingleResult();
-//		System.out.println("ID account called from getAccount(): "+account.getId());
-//		return account;
 	}
 
-	@Override
-	public List<Movie> getRentersMovies(String lastname) {
-		return null;
-
-//		return (List<Account>) em.createQuery("SELECT c.accounts FROM Client c where c.lastname=:lastname").setParameter("lastname", lastname).getResultList();
+	public List<Movie> getRentersMovies(String lastNameRenter, String firstNameRenter) {
+		return (List<Movie>) em.createQuery("SELECT movies FROM Renter r WHERE r.lastName=:lastName AND r.firstName=:firstName").setParameter("lastname", lastNameRenter).setParameter("firstname", firstNameRenter).getResultList();
 	}
 
-	@Override
-	public void transfer(Store store, Renter renter, Movie movie) throws Exception {
+	public void rentMovie(Store store, Renter renter, Movie movie) throws Exception {
 		
-//		System.out.println("ID source account called from transfer(): " + srcAccount.getId());
-//		System.out.println("ID destination account called from transfer(): " + destAccount.getId());
-//		
-//		em.persist(srcAccount);
-//		em.persist(destAccount);
-//		srcAccount.debit(amount);
-//		destAccount.credit(amount); 
+		Employee employee = getRandomEmployee();
 		
+		System.out.println("ID Movie called from rentMovie(): " + renter.getId());
+		System.out.println("ID Renter called from rentMovie(): " + movie.getId());
+		System.out.println("ID Employee called from rentMovie(): " + employee.getId());
+		
+		em.persist(renter);
+		em.persist(movie);
+		em.persist(employee);
+		renter.rentMovie(movie);
+		store.rentMovie(movie);
 	}
+	
+	public void returnMovie(Store store, Renter renter, Movie movie) throws Exception {
+		
+		Employee employee = getRandomEmployee();
+		
+		System.out.println("ID Movie called from returnMovie(): " + renter.getId());
+		System.out.println("ID Renter called from returnMovie(): " + movie.getId());
+		System.out.println("ID Employee called from returnMovie(): " + employee.getId());
+		
+		em.persist(renter);
+		em.persist(movie);
+		em.persist(employee);
+		renter.returnMovie(movie);
+		store.returnMovie(movie);
+	}
+
 
 	@Override
 	public List<Renter> getRenters() {
-		return null;
-//		return em.createQuery("FROM Client").getResultList();
+		return em.createQuery("FROM Renter").getResultList();
+	}
+
+	public Employee getRandomEmployee() {
+		Employee employee;
+		List<Employee> employees = getEmployees();
+		
+		Random r = new Random();
+		employee = employees.get(r.nextInt(employees.size()));
+		
+		return employee;
+	}
+	
+	@Override
+	public List<Employee> getEmployees() {
+		return em.createQuery("FROM Employee").getResultList();
 	}
 
 	@Override
-	public Renter getClient(long renterId) {
-		return null;
-//		return (Client) em.createQuery("FROM Client c where c.id=:id").setParameter("id", clientid).getSingleResult();
-	}
+	public Store getStore(long storeID) {
+		return (Store) em.createQuery("FROM Store s WHERE s.id=:is").setParameter("id", storeID).getSingleResult();
+		}
 }

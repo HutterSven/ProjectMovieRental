@@ -21,4 +21,13 @@ public class Renter extends Person {
 	public Renter(List<Movie> movies) {
 		this.movies = movies;
 	}
+	
+	//methods
+	public void rentMovie(Movie movie) {
+		movies.add(movie);
+	}
+	
+	public void returnMovie(Movie movie) {
+		movies.remove(movie);
+	}
 }

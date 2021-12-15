@@ -22,17 +22,19 @@ public class TransferBean
 {
     private List<Renter> renters;
     private List<String> renterNames;
-    private String transactionResult;
+    private String rentalResult;
+    private MovieRentalStore movieRentalStore;
+    private String renterFirstName;
+    private String renterLastName;
+    private long storeID;
     private Movie movie;
-    private Store store;
-    private Renter renter;
     
     @PostConstruct
     public void initialize() throws NamingException {
     	
     	// use JNDI to inject reference to bank EJB
     	InitialContext ctx = new InitialContext();
-		store = (Store) ctx.lookup("java:global/TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT/MovieRentalStoreBean!ch.hevs.movierentalservice.Movie");
+		movieRentalStore = (MovieRentalStore) ctx.lookup("java:global/TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT/MovieRentalStoreBean!ch.hevs.movierentalservice.Movie");
 			
     	// get renters
 		renters = new ArrayList<Renter>();
@@ -41,14 +43,10 @@ public class TransferBean
 			this.renterNames.add(renter.getLastname());
 		}
 		
-		// get Store
-		
-		store = new Store();
-		
 		
     }
     
-    // transactionAmount
+    // movieRented
     public Movie getMovieRented () {
     	return movie;
     }
@@ -56,16 +54,16 @@ public class TransferBean
     	this.movie = movie;
     }
     
-    // transactionResult
-    public String getTransactionResult () {
-    	return transactionResult;
+    // rentalResult
+    public String getRentalResult () {
+    	return rentalResult;
     }
-	public void setTransactionResult(String transactionResult) {
-		this.transactionResult = transactionResult;
+	public void setRentalResult(String rentalResult) {
+		this.rentalResult = rentalResult;
 	}
     
 
-	public void updateSourceAccounts(ValueChangeEvent event) {
+	public void updateRenter(ValueChangeEvent event) {
 //    	this.sourceClientName = (String)event.getNewValue();
 //    	
 //	    List<Account> accounts = bank.getAccountListFromClientLastname(this.sourceClientName);
@@ -74,7 +72,7 @@ public class TransferBean
 //			this.sourceAccountDescriptions.add(account.getDescription());
 //		}
     }
-	public void updateDestinationAccounts(ValueChangeEvent event) {
+	public void updateStore(ValueChangeEvent event) {
 //    	this.destinationClientName = (String)event.getNewValue();
 //			
 //	    List<Account> accounts = bank.getAccountListFromClientLastname(this.destinationClientName);
@@ -84,26 +82,18 @@ public class TransferBean
 //		}
     }
     
-    public String performTransfer() {
+    public String performRental() {
     	
-//    	try {
-//			if (sourceClientName.equals(destinationClientName) && sourceAccountDescription.equals(destinationAccountDescription)) {
-//				
-//				this.transactionResult="Error: accounts are identical!";
-//			} 
-//			else {
-//				
-//				Account compteSrc = bank.getAccount(sourceAccountDescription, sourceClientName);
-//				Account compteDest = bank.getAccount(destinationAccountDescription, destinationClientName);
-//	
-//				// Transfer
-//				bank.transfer(compteSrc, compteDest, transactionAmount);
-//				this.transactionResult="Success!";
-//			}
-//    	} catch (Exception e) {
-//    		e.printStackTrace();
-//    	}
+    	try {
+			Renter renter = movieRentalStore.getRenter(renterFirstName, renterLastName);
+			Store store = movieRentalStore.getStore(storeID);
+			
+			movieRentalStore.rentMovie(store, renter, movie);
+			this.rentalResult="Success!";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-		return "showTransferResult"; //  the String value returned represents the outcome used by the navigation handler to determine what page to display next.
+		return "showRentalResult"; //  the String value returned represents the outcome used by the navigation handler to determine what page to display next.
 	} 
 }

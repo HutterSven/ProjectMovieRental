@@ -57,6 +57,15 @@ public class Store {
 	}
 
 	
+	//methods
+		public void rentMovie(Movie movie) {
+			movies.remove(movie);
+		}
+		
+		public void returnMovie(Movie movie) {
+			movies.add(movie);
+		}
+	
 	@Embedded
 	private Address address;
 	
