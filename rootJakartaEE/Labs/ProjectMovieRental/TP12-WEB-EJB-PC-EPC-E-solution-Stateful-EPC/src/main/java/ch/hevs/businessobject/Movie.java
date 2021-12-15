@@ -79,4 +79,10 @@ public class Movie {
 		this.categories = categories;
 	}
 	
+	//TODO: add addCategory method
+	
+	public void addCategory(Category category) {
+		categories.add(category);
+	}
+	
 }
