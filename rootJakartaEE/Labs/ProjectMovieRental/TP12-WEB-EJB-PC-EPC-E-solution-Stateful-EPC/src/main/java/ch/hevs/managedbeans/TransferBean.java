@@ -22,6 +22,12 @@ public class TransferBean
 {
     private List<Renter> renters;
     private List<String> renterNames;
+    private List<Store> stores;
+    private List<String> storeNames;
+    private List<Movie> movies;
+    private List<String> movieNames;
+    private List<Movie> renterMovies;
+    private List<String> renterMovieNames;
     private String rentalResult;
     private MovieRentalStore movieRentalStore;
     private String renterFirstName;
@@ -41,6 +47,27 @@ public class TransferBean
 		this.renterNames = new ArrayList<String>();
 		for (Renter renter : renters) {
 			this.renterNames.add(renter.getLastname());
+		}
+		
+		// get stores
+		stores = new ArrayList<Store>();
+		this.storeNames = new ArrayList<String>();
+		for (Store store : stores) {
+			this.storeNames.add(String.valueOf(store.getId()));
+		}
+				
+		// get movies
+		movies = new ArrayList<Movie>();
+		this.movieNames = new ArrayList<String>();
+		for (Movie movie : movies) {
+			this.movieNames.add(movie.getTitle());
+		}
+		
+		// get renterMovies
+		renterMovies = new ArrayList<Movie>();
+		this.movieNames = new ArrayList<String>();
+		for (Movie movie : renterMovies) {
+			this.renterMovieNames.add(movie.getTitle());
 		}
 		
 		
@@ -64,7 +91,8 @@ public class TransferBean
     
 
 	public void updateRenter(ValueChangeEvent event) {
-//    	this.sourceClientName = (String)event.getNewValue();
+    	this.renterFirstName = (String)event.getNewValue().split(' ')[0];
+    	this.renterLastName = (String)event.getNewValue().split(' ')[1];
 //    	
 //	    List<Account> accounts = bank.getAccountListFromClientLastname(this.sourceClientName);
 //	    this.sourceAccountDescriptions = new ArrayList<String>();
@@ -73,7 +101,7 @@ public class TransferBean
 //		}
     }
 	public void updateStore(ValueChangeEvent event) {
-//    	this.destinationClientName = (String)event.getNewValue();
+    	this.storeID = (long)event.getNewValue();
 //			
 //	    List<Account> accounts = bank.getAccountListFromClientLastname(this.destinationClientName);
 //	    this.destinationAccountDescriptions = new ArrayList<String>();
@@ -89,6 +117,21 @@ public class TransferBean
 			Store store = movieRentalStore.getStore(storeID);
 			
 			movieRentalStore.rentMovie(store, renter, movie);
+			this.rentalResult="Success!";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "showRentalResult"; //  the String value returned represents the outcome used by the navigation handler to determine what page to display next.
+	} 
+    
+    public String performReturnal() {
+    	
+    	try {
+			Renter renter = movieRentalStore.getRenter(renterFirstName, renterLastName);
+			Store store = movieRentalStore.getStore(storeID);
+			
+			movieRentalStore.returnMovie(store, renter, movie);
 			this.rentalResult="Success!";
 		} catch (Exception e) {
 			e.printStackTrace();

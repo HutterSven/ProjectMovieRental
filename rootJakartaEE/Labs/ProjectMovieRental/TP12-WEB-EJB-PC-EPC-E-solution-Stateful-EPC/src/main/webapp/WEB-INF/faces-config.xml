@@ -10,19 +10,35 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<navigation-rule>
-		<display-name>welcomeBank.xhtml</display-name>
-		<from-view-id>/welcomeBank.xhtml</from-view-id>
+		<display-name>welcomeMovieRental.xhtml</display-name>
+		<from-view-id>/welcomeMovieRental.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>transferForm</from-outcome>
-			<to-view-id>/transferForm.xhtml</to-view-id>
+			<from-outcome>rentForm</from-outcome>
+			<to-view-id>/rentForm.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
-		<display-name>transferForm.xhtml</display-name>
-		<from-view-id>/transferForm.xhtml</from-view-id>
+		<display-name>rentForm.xhtml</display-name>
+		<from-view-id>/rentForm.xhtml</from-view-id>
 		<navigation-case>
-			<from-outcome>#{transferBean.performTransfer}</from-outcome>
-			<to-view-id>/showTransferResult.xhtml</to-view-id>
+			<from-outcome>#{transferBean.performRental}</from-outcome>
+			<to-view-id>/showRentalResult.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>welcomeMovieRental.xhtml</display-name>
+		<from-view-id>/welcomeMovieRental.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>returnForm</from-outcome>
+			<to-view-id>/returnForm.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>returnForm.xhtml</display-name>
+		<from-view-id>/returnForm.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>#{transferBean.performReturnal}</from-outcome>
+			<to-view-id>/showReturnalResult.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 

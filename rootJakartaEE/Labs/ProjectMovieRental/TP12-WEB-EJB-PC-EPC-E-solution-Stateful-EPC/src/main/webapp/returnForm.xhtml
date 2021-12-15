@@ -24,11 +24,11 @@
 	        	</h:selectOneMenu>
 	        	<h:outputText value="Movie: "></h:outputText>
 	        	<h:outputText value="Movie Name: "></h:outputText>
-	        	<h:selectOneMenu value="#{transferBean.movieName}">
-	        		<f:selectItems value="#{transferBean.movieNames}"/>
+	        	<h:selectOneMenu value="#{transferBean.renterMovieName}">
+	        		<f:selectItems value="#{transferBean.renterMovieNames}"/>
 	        	</h:selectOneMenu>
         	</h:panelGrid>
-     		<h:commandButton value="rent" action="#{transferBean.performRental}"></h:commandButton>
+     		<h:commandButton value="return" action="#{transferBean.performReturnal}"></h:commandButton>
         </h:form>
     </ui:define>
 </ui:composition>

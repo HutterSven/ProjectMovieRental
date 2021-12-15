@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14141592409490" configfile="/TP12-WEB-EJB-PC-EPC-E-solution-Stateful-EPC/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="welcomeBank.xhtml" x="122" y="178" id="pf16394172767280" referenceLink="//@navigationRule.0/@fromViewId|" outlinks="pf16394172767281" path="/welcomeBank.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="transferForm.xhtml" x="338" y="178" id="pf16394172767282" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf16394172767283" inlinks="pf16394172767281" path="/transferForm.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="showTransferResult.xhtml" x="554" y="178" id="pf16394172767284" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf16394172767283" path="/showTransferResult.xhtml"/>
-  <links id="pf16394172767281" target="pf16394172767282" source="pf16394172767280" outcome="transferForm"/>
-  <links id="pf16394172767283" target="pf16394172767284" source="pf16394172767282" outcome="#{transferBean.performTransfer}"/>
+  <nodes xsi:type="pageflow:PFPage" name="rentForm.xhtml" x="396" y="252" id="pf16395640276880" outlinks="pf16395640276891" inlinks="pf16395640276892" path="/rentForm.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="showRentalResult.xhtml" x="745" y="248" id="pf16395640276893" inlinks="pf16395640276891" path="/showRentalResult.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="welcomeMovieRental.xhtml" x="60" y="300" id="pf16395640276894" outlinks="pf16395640276892 pf16395644133725" path="/welcomeMovieRental.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="returnForm.xhtml" x="389" y="384" id="pf16395644133726" outlinks="pf16395645647427" inlinks="pf16395644133725" path="/returnForm.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="showReturnalResult.xhtml" x="739" y="384" id="pf16395645647428" inlinks="pf16395645647427" path="/showReturnalResult.xhtml"/>
+  <links id="pf16395640276892" target="pf16395640276880" source="pf16395640276894" outcome="rentForm"/>
+  <links id="pf16395640276891" target="pf16395640276893" source="pf16395640276880" outcome="#{transferBean.performRental}"/>
+  <links id="pf16395644133725" target="pf16395644133726" source="pf16395640276894" outcome="returnForm"/>
+  <links id="pf16395645647427" target="pf16395645647428" source="pf16395644133726" outcome="#{transferBean.performReturnal}"/>
 </pageflow:Pageflow>

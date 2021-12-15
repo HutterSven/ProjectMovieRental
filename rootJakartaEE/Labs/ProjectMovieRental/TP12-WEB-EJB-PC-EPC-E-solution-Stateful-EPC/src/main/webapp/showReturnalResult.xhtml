@@ -8,14 +8,11 @@
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
     <ui:define name="content">
-        <h:outputLabel value="Welcome to MovieRental"></h:outputLabel>
+        <h:outputLabel value="Transfer result:"></h:outputLabel><h:outputLabel value=" #{transferBean.transactionResult}"></h:outputLabel>
         <br></br>
         <h:form>
-        <h:commandLink action="rentForm">
-         <h:outputText value="Rent a Movie" />
-        </h:commandLink>
-        <h:commandLink action="returnForm">
-         <h:outputText value="Return a Movie" />
+        <h:commandLink action="transferForm">
+         <h:outputText value="Make another transfer" />
         </h:commandLink>
         </h:form>
     </ui:define>
