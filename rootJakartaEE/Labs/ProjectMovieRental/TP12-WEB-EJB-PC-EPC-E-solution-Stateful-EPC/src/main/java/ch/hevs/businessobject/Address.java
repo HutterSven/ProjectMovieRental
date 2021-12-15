@@ -38,7 +38,7 @@ public class Address {
 	// constructors
 	public Address() {
 	}
-	public Address(String city, int postal, String street) {
+	public Address(int postal, String city, String street) {
 		this.city = city;
 		this.postal = postal;
 		this.street = street;
