@@ -33,8 +33,7 @@ public class Movie {
 	public Movie() {
 		categories = new ArrayList<Category>();
 	}
-	public Movie(int id, String title, int length, int year, List<Category> categories) {
-		this.id = id;
+	public Movie(String title, int length, int year, List<Category> categories) {
 		this.title = title;
 		this.length = length;
 		this.year = year;

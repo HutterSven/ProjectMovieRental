@@ -18,7 +18,10 @@ public class Renter extends Person {
 	public Renter() {
 		movies = new ArrayList<Movie>();
 	}
-	public Renter(List<Movie> movies) {
+	public Renter(List<Movie> movies, String firstname, String lastname, Address address) {
 		this.movies = movies;
+		this.setLastname(lastname);
+		this.setFirstname(firstname);
+		this.setAddress(address);
 	}
 }

@@ -1,5 +1,6 @@
 package ch.hevs.businessobject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Embedded;
@@ -54,6 +55,17 @@ public class Store {
 
 	public void setMovies(List<Movie> movies) {
 		this.movies = movies;
+	}
+	
+	public Store() {
+		employees = new ArrayList<Employee>();
+		movies = new ArrayList<Movie>();
+	}
+	
+	public Store(Address address, List<Movie> movies, List<Employee> employees) {
+		this.address = address;
+		this.movies = movies;
+		this.employees = employees;
 	}
 
 	
