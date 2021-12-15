@@ -68,44 +68,52 @@ public class EntitityTests {
 			em.persist(category5);
 
 
-			categories.add(category);
-			categories.add(category2);
-
-			Movie lotr = new Movie("Lord of the Rings", 168, 2001, categories);
-
-			em.persist(lotr);
+			Movie lotr = new Movie("Lord of the Rings", 168, 2001, new ArrayList<Category>());
 			
-			ArrayList<Category> categories2 = new ArrayList<Category>();
-			categories2.add(category5);
-			categories2.add(category);
+			em.persist(lotr);
 
-			Movie movie1 = new Movie("What we do in the Shadows", 120, 2001, categories2);
+			lotr.addCategory(category5);
+			lotr.addCategory(category);
+			
+
+
+			Movie movie1 = new Movie("What we do in the Shadows", 120, 2001, new ArrayList<Category>());
+			
 
 			em.persist(movie1);
-			
-			ArrayList<Category> categories3 = new ArrayList<Category>();
-			categories3.add(category3);
-			categories3.add(category2);
-			
-			Movie movie2 = new Movie("Clockwork Orange", 168, 1978, categories3);
 
+			movie1.addCategory(category3);
+			movie1.addCategory(category2);
+			
+			
+			Movie movie2 = new Movie("Clockwork Orange", 168, 1978, new ArrayList<Category>());
+			
+			
 			em.persist(movie2);
-			
-			ArrayList<Category> categories4 = new ArrayList<Category>();
-			categories4.add(category2);
-			categories4.add(category5);
-			
-			Movie movie3 = new Movie("Seven", 168, 2002, categories4);
 
-			em.persist(movie3);
+
 			
-			ArrayList<Category> categories5 = new ArrayList<Category>();
-			categories5.add(category);
-			categories5.add(category3);
+			movie2.addCategory(category2);
+			movie2.addCategory(category5);
+
 			
-			Movie movie4 = new Movie("Hannibal", 168, 1999, categories5);
+			Movie movie3 = new Movie("Seven", 168, 2002, new ArrayList<Category>());
+			
+			
+			em.persist(movie3);	
+
+			movie3.addCategory(category);
+			movie3.addCategory(category3);
+
+			
+			Movie movie4 = new Movie("Hannibal", 168, 1999, new ArrayList<Category>());
+			
 
 			em.persist(movie4);
+			
+			movie4.addCategory(category);
+			movie4.addCategory(category3);
+
 
 			movies.add(lotr);
 
