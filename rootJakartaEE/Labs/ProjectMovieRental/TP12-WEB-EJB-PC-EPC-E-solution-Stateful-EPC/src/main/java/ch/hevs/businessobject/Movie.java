@@ -79,4 +79,6 @@ public class Movie {
 		this.categories = categories;
 	}
 	
+	//TODO: add addCategory method
+	
 }
