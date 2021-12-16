@@ -17,7 +17,7 @@ import ch.hevs.businessobject.Store;
 @Stateful
 public class MovieRentalStoreBean implements MovieRentalStore {
 	
-	@PersistenceContext(name = "MovieRentalPU", type=PersistenceContextType.EXTENDED)
+	@PersistenceContext(name = "moviePU", type=PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
 	@Override
@@ -31,6 +31,7 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 		return renter;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Movie> getRentersMovies(String lastNameRenter, String firstNameRenter) {
 		return (List<Movie>) em.createQuery("SELECT movies FROM Renter r WHERE r.lastName=:lastName AND r.firstName=:firstName").setParameter("lastname", lastNameRenter).setParameter("firstname", firstNameRenter).getResultList();
 	}
@@ -66,6 +67,7 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 	}
 
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Renter> getRenters() {
 		return em.createQuery("FROM Renter").getResultList();
@@ -81,6 +83,7 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 		return employee;
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Employee> getEmployees() {
 		return em.createQuery("FROM Employee").getResultList();
@@ -88,6 +91,6 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 
 	@Override
 	public Store getStore(long storeID) {
-		return (Store) em.createQuery("FROM Store s WHERE s.id=:is").setParameter("id", storeID).getSingleResult();
+		return (Store) em.createQuery("FROM Store s WHERE s.id=:id").setParameter("id", storeID).getSingleResult();
 		}
 }

@@ -1,25 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PROCESS model-entity="JSFProcess">
- <PROCESS-ITEM NAME="rules:#welcomeBank.xhtml" PATH="/welcomeBank.xhtml"
-  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#welcomeBank.xhtml:0" NAME="item"
-   PATH="/welcomeBank.xhtml" model-entity="JSFProcessItem">
-   <PROCESS-ITEM-OUTPUT ID="transferForm::#transferForm.xhtml"
-    NAME="output" PATH="/transferForm.xhtml"
-    TARGET="rules:#transferForm.xhtml" TITLE="transferForm" model-entity="JSFProcessItemOutput"/>
+ <PROCESS-ITEM NAME="rules:#welcomeMovieRental.xhtml"
+  PATH="/welcomeMovieRental.xhtml" SHAPE="256,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#welcomeMovieRental.xhtml:0" NAME="item"
+   PATH="/welcomeMovieRental.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="rentForm::#rentForm.xhtml" NAME="output"
+    PATH="/rentForm.xhtml" TARGET="rules:#rentForm.xhtml"
+    TITLE="rentForm" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#welcomeMovieRental.xhtml:1" NAME="item1"
+   PATH="/welcomeMovieRental.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="returnForm::#returnForm.xhtml" NAME="output"
+    PATH="/returnForm.xhtml" TARGET="rules:#returnForm.xhtml"
+    TITLE="returnForm" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#transferForm.xhtml"
-  PATH="/transferForm.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup">
-  <PROCESS-ITEM ID="rules:#transferForm.xhtml:0" NAME="item"
-   PATH="/transferForm.xhtml" model-entity="JSFProcessItem">
+ <PROCESS-ITEM NAME="rules:#rentForm.xhtml" PATH="/rentForm.xhtml"
+  SHAPE="480,161,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#rentForm.xhtml:0" NAME="item"
+   PATH="/rentForm.xhtml" model-entity="JSFProcessItem">
    <PROCESS-ITEM-OUTPUT
-    ID="#{transferBean.performTransfer}::#showTransferResult.xhtml"
-    NAME="output" PATH="/showTransferResult.xhtml"
-    TARGET="rules:#showTransferResult.xhtml"
-    TITLE="#{transferBean.performTransfer}" model-entity="JSFProcessItemOutput"/>
+    ID="#{transferBean.performRental}::#showRentalResult.xhtml"
+    NAME="output" PATH="/showRentalResult.xhtml"
+    TARGET="rules:#showRentalResult.xhtml"
+    TITLE="#{transferBean.performRental}" model-entity="JSFProcessItemOutput"/>
   </PROCESS-ITEM>
  </PROCESS-ITEM>
- <PROCESS-ITEM NAME="rules:#showTransferResult.xhtml"
-  PATH="/showTransferResult.xhtml" SHAPE="448,17,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#returnForm.xhtml" PATH="/returnForm.xhtml"
+  SHAPE="480,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#returnForm.xhtml:0" NAME="item"
+   PATH="/returnForm.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="#{transferBean.performReturnal}::#showReturnalResult.xhtml"
+    NAME="output" PATH="/showReturnalResult.xhtml"
+    TARGET="rules:#showReturnalResult.xhtml"
+    TITLE="#{transferBean.performReturnal}" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#showReturnalResult.xhtml"
+  PATH="/showReturnalResult.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#showReturnalResult.xhtml:0" NAME="item"
+   PATH="/showReturnalResult.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="welcomeMovieRental::#welcomeMovieRental.xhtml" NAME="output"
+    PATH="/welcomeMovieRental.xhtml"
+    TARGET="rules:#welcomeMovieRental.xhtml" TITLE="welcomeMovieRental" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#showRentalResult.xhtml"
+  PATH="/showRentalResult.xhtml" SHAPE="688,177,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#showRentalResult.xhtml:0" NAME="item"
+   PATH="/showRentalResult.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="welcomeMovieRental::#welcomeMovieRental.xhtml" NAME="output"
+    PATH="/welcomeMovieRental.xhtml"
+    TARGET="rules:#welcomeMovieRental.xhtml" TITLE="welcomeMovieRental" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
 </PROCESS>

@@ -41,5 +41,20 @@
 			<to-view-id>/showReturnalResult.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-
+	<navigation-rule>
+		<display-name>showReturnalResult.xhtml</display-name>
+		<from-view-id>/showReturnalResult.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>welcomeMovieRental</from-outcome>
+			<to-view-id>/welcomeMovieRental.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>showRentalResult.xhtml</display-name>
+		<from-view-id>/showRentalResult.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>welcomeMovieRental</from-outcome>
+			<to-view-id>/welcomeMovieRental.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

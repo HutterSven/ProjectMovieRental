@@ -46,7 +46,7 @@ public class TransferBean
 		renters = new ArrayList<Renter>();
 		this.renterNames = new ArrayList<String>();
 		for (Renter renter : renters) {
-			this.renterNames.add(renter.getLastname());
+			this.renterNames.add(renter.getFirstname() + " " + renter.getLastname());
 		}
 		
 		// get stores
@@ -91,8 +91,8 @@ public class TransferBean
     
 
 	public void updateRenter(ValueChangeEvent event) {
-    	this.renterFirstName = (String)event.getNewValue().split(' ')[0];
-    	this.renterLastName = (String)event.getNewValue().split(' ')[1];
+    	this.renterFirstName = (String)event.getNewValue().toString().split(" ")[0];
+    	this.renterLastName = (String)event.getNewValue().toString().split(" ")[1];
 //    	
 //	    List<Account> accounts = bank.getAccountListFromClientLastname(this.sourceClientName);
 //	    this.sourceAccountDescriptions = new ArrayList<String>();
