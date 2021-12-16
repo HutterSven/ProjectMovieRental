@@ -16,7 +16,7 @@ import ch.hevs.businessobject.Store;
 
 @Stateful
 public class MovieRentalStoreBean implements MovieRentalStore {
-	
+
 	@PersistenceContext(name = "moviePU", type=PersistenceContextType.EXTENDED)
 	private EntityManager em;
 
@@ -25,7 +25,7 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 		Query query = em.createQuery("FROM Renter r WHERE r.lastName=:lastName AND r.firstName=:firstName");
 		query.setParameter("firstName", firstNameRenter);
 		query.setParameter("lastName", lastNameRenter);
-		
+
 		Renter renter = (Renter) query.getSingleResult();
 		System.out.println("ID renter called from getRenter(): "+renter.getId());
 		return renter;
@@ -37,28 +37,28 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 	}
 
 	public void rentMovie(Store store, Renter renter, Movie movie) throws Exception {
-		
+
 		Employee employee = getRandomEmployee();
-		
+
 		System.out.println("ID Movie called from rentMovie(): " + renter.getId());
 		System.out.println("ID Renter called from rentMovie(): " + movie.getId());
 		System.out.println("ID Employee called from rentMovie(): " + employee.getId());
-		
+
 		em.persist(renter);
 		em.persist(movie);
 		em.persist(employee);
 		renter.rentMovie(movie);
 		store.rentMovie(movie);
 	}
-	
+
 	public void returnMovie(Store store, Renter renter, Movie movie) throws Exception {
-		
+
 		Employee employee = getRandomEmployee();
-		
+
 		System.out.println("ID Movie called from returnMovie(): " + renter.getId());
 		System.out.println("ID Renter called from returnMovie(): " + movie.getId());
 		System.out.println("ID Employee called from returnMovie(): " + employee.getId());
-		
+
 		em.persist(renter);
 		em.persist(movie);
 		em.persist(employee);
@@ -76,13 +76,13 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 	public Employee getRandomEmployee() {
 		Employee employee;
 		List<Employee> employees = getEmployees();
-		
+
 		Random r = new Random();
 		employee = employees.get(r.nextInt(employees.size()));
-		
+
 		return employee;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Employee> getEmployees() {
@@ -92,5 +92,17 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 	@Override
 	public Store getStore(long storeID) {
 		return (Store) em.createQuery("FROM Store s WHERE s.id=:id").setParameter("id", storeID).getSingleResult();
-		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Store> getStores() {
+		return em.createQuery("FROM Store").getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Movie> getMovies() {
+		return em.createQuery("FROM Movie").getResultList();
+	}
 }

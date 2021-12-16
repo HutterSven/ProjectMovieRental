@@ -14,6 +14,10 @@ public interface MovieRentalStore {
 
 	Renter getRenter(String lastNameRenter, String firstNameRenter);
 	
+	List<Store> getStores();
+	
+	List<Movie> getMovies();
+	
 	public List<Movie> getRentersMovies(String lastNameRenter, String firstNameRenter);
 
 	void rentMovie(Store store, Renter renter, Movie movie) throws Exception;
