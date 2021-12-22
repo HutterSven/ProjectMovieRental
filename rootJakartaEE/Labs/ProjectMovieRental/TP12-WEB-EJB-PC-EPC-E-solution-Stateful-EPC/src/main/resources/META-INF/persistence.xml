@@ -6,11 +6,12 @@
 	version="1.0">
 
 	<persistence-unit name="moviePU">
-	
 
-	
-	<provider>org.hibernate.ejb.HibernatePersistence</provider>
-			<class>ch.hevs.businessobject.Address</class>
+
+
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:/labsDS</jta-data-source>
+		<class>ch.hevs.businessobject.Address</class>
 		<class>ch.hevs.businessobject.Store</class>
 		<class>ch.hevs.businessobject.Renter</class>
 		<class>ch.hevs.businessobject.Employee</class>
@@ -19,8 +20,9 @@
 		<class>ch.hevs.businessobject.Person</class>
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
-			<property name="hibernate.show_sql" value="true" /> 
-			<property name="dialect" value="org.hibernate.dialect.HSQLDialect"/>
+			<property name="hibernate.show_sql" value="true" />
+			<property name="dialect"
+				value="org.hibernate.dialect.HSQLDialect" />
 
 		</properties>
 	</persistence-unit>
