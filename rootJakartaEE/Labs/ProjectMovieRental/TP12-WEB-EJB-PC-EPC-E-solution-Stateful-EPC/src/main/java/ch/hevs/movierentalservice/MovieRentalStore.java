@@ -18,6 +18,8 @@ public interface MovieRentalStore {
 	
 	List<Movie> getMovies();
 	
+	Movie getMovie(String title);
+	
 	public List<Movie> getRentersMovies(String lastNameRenter, String firstNameRenter);
 
 	void rentMovie(Store store, Renter renter, Movie movie) throws Exception;

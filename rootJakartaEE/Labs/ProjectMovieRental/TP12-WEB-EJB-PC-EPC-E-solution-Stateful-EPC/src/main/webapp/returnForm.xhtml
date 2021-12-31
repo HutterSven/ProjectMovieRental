@@ -24,7 +24,7 @@
 	        	</h:selectOneMenu>
 	        	<h:outputText value="Movie: "></h:outputText>
 	        	<h:outputText value="Movie Name: "></h:outputText>
-	        	<h:selectOneMenu value="#{transferBean.renterMovieName}">
+	        	<h:selectOneMenu value="#{transferBean.renterMovieName}" valueChangeListener="#{transferBean.updateRenterMovie}" onchange="submit()">
 	        		<f:selectItems value="#{transferBean.renterMovieNames}"/>
 	        	</h:selectOneMenu>
         	</h:panelGrid>

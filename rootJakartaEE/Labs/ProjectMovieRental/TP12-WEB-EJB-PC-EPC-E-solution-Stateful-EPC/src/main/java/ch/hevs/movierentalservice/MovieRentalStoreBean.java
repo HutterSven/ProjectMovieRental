@@ -22,7 +22,20 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 
 	@Override
 	public Renter getRenter(String lastNameRenter, String firstNameRenter) {
-		Query query = em.createQuery("FROM Renter r WHERE r.lastName=:lastName AND r.firstName=:firstName");
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println(lastNameRenter+firstNameRenter);
+		System.out.println(lastNameRenter+firstNameRenter);
+		System.out.println(lastNameRenter+firstNameRenter);
+		System.out.println(lastNameRenter+firstNameRenter);
+		System.out.println(lastNameRenter+firstNameRenter);
+		System.out.println(lastNameRenter+firstNameRenter);
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		Query query = em.createQuery("FROM Renter r WHERE r.lastname=:firstName AND r.firstname=:lastName");
 		query.setParameter("firstName", firstNameRenter);
 		query.setParameter("lastName", lastNameRenter);
 
@@ -33,7 +46,7 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 
 	@SuppressWarnings("unchecked")
 	public List<Movie> getRentersMovies(String lastNameRenter, String firstNameRenter) {
-		return (List<Movie>) em.createQuery("SELECT movies FROM Renter r WHERE r.lastName=:lastName AND r.firstName=:firstName").setParameter("lastname", lastNameRenter).setParameter("firstname", firstNameRenter).getResultList();
+		return (List<Movie>) em.createQuery("SELECT movies FROM Renter r WHERE r.lastname=:firstname AND r.firstname=:lastname").setParameter("lastname", lastNameRenter).setParameter("firstname", firstNameRenter).getResultList();
 	}
 
 	public void rentMovie(Store store, Renter renter, Movie movie) throws Exception {
@@ -104,5 +117,11 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 	@Override
 	public List<Movie> getMovies() {
 		return em.createQuery("FROM Movie").getResultList();
+	}
+
+	@Override
+	public Movie getMovie(String title) {
+		// TODO Auto-generated method stub
+		return (Movie) em.createQuery("FROM Movie m WHERE m.title=:title").setParameter("title", title).getSingleResult();
 	}
 }

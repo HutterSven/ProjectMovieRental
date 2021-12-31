@@ -20,44 +20,45 @@ import ch.hevs.movierentalservice.MovieRentalStore;
 
 public class TransferBean
 {
-    private List<Renter> renters;
-    private List<String> renterNames;
-    private List<Store> stores;
-    private List<String> storeIDs;
-    private List<Movie> movies;
-    private List<String> movieNames;
-    private List<Movie> renterMovies;
-    private List<String> renterMovieNames;
-    private String rentalResult;
-    private MovieRentalStore movieRentalStore;
-    public String renterName;
-    private String renterFirstName;
-    private String renterLastName;
-    private long storeID;
-    private Movie movie;
-    private String movieName;
-    
-    @PostConstruct
-    public void initialize() throws NamingException {
-    	
-    	// use JNDI to inject reference to bank EJB
-    	InitialContext ctx = new InitialContext();
+	private List<Renter> renters;
+	private List<String> renterNames;
+	private List<Store> stores;
+	private List<String> storeIDs;
+	private List<Movie> movies;
+	private List<String> movieNames;
+	private List<Movie> renterMovies;
+	private List<String> renterMovieNames;
+	private String renterMovieName;
+	private String rentalResult;
+	private MovieRentalStore movieRentalStore;
+	public String renterName;
+	private String renterFirstName;
+	private String renterLastName;
+	private long storeID;
+	private Movie movie;
+	private String movieName;
+
+	@PostConstruct
+	public void initialize() throws NamingException {
+
+		// use JNDI to inject reference to bank EJB
+		InitialContext ctx = new InitialContext();
 		movieRentalStore = (MovieRentalStore) ctx.lookup("java:global/TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT/MovieRentalStoreBean!ch.hevs.movierentalservice.MovieRentalStore");
-			
-    	// get renters
+
+		// get renters
 		renters = movieRentalStore.getRenters();
 		this.renterNames = new ArrayList<String>();
 		for (Renter renter : renters) {
 			this.renterNames.add(renter.getFirstname() + " " + renter.getLastname());
 		}
-		
+
 		// get stores
 		stores = movieRentalStore.getStores();
 		this.storeIDs = new ArrayList<String>();
 		for (Store store : stores) {
 			this.storeIDs.add(String.valueOf(store.getId()));
 		}
-				
+
 		// get movies
 		movies = movieRentalStore.getMovies();
 		this.movieNames = new ArrayList<String>();
@@ -65,17 +66,19 @@ public class TransferBean
 			this.movieNames.add(movie.getTitle());
 		}
 
-			
+
 		//get renterName
-		this.renterName = "Hans";
-		
-		this.storeID = 0;
-		
-		this.movieName = "Lotr";		
-		
-    }
-    
-    public List<Renter> getRenters() {
+		this.renterName = renterNames.get(0);
+
+		this.storeID = Long.parseLong(storeIDs.get(0));
+
+		this.movieName = movieNames.get(0);		
+
+		updateRenterMovies(renterName.split(" ")[0], renterName.split(" ")[1]);
+	}
+
+
+	public List<Renter> getRenters() {
 		return renters;
 	}
 
@@ -196,53 +199,101 @@ public class TransferBean
 	}
 
 	// movieRented
-    public Movie getMovieRented () {
-    	return movie;
-    }
-    public void setMovieRented (final Movie movie) {
-    	this.movie = movie;
-    }
-    
-    // rentalResult
-    public String getRentalResult () {
-    	return rentalResult;
-    }
+	public Movie getMovieRented () {
+		return movie;
+	}
+	public void setMovieRented (final Movie movie) {
+		this.movie = movie;
+	}
+
+	// rentalResult
+	public String getRentalResult () {
+		return rentalResult;
+	}
 	public void setRentalResult(String rentalResult) {
 		this.rentalResult = rentalResult;
 	}
-    
+
+
+	public void updateRenterMovies(String firstname, String lastname) {
+		// get movies
+		renterMovies = movieRentalStore.getRentersMovies(firstname, lastname);
+		this.renterMovieNames = new ArrayList<String>();
+		for (Movie movie : renterMovies) {
+			this.renterMovieNames.add(movie.getTitle());
+		}
+
+		if(renterMovieNames.size() > 0) this.renterMovieName = renterMovieNames.get(0);
+		else this.renterMovieName = "No movies rented";
+	}
+
+	public String getRenterMovieName() {
+		return renterMovieName;
+	}
+
+
+	public void setRenterMovieName(String renterMovieName) {
+		this.renterMovieName = renterMovieName;
+	}
+
 
 	public void updateRenter(ValueChangeEvent event) {
-		
-    	this.renterName = (String)event.getNewValue().toString();
-		
-    	this.renterFirstName = this.renterName.split(" ")[0];
-    	this.renterLastName = this.renterName.split(" ")[1];
-    	
 
-//    	
-//	    List<Account> accounts = bank.getAccountListFromClientLastname(this.sourceClientName);
-//	    this.sourceAccountDescriptions = new ArrayList<String>();
-//		for (Account account : accounts) {
-//			this.sourceAccountDescriptions.add(account.getDescription());
-//		}
-    }
+		this.renterName = (String)event.getNewValue().toString();
+
+		this.renterFirstName = this.renterName.split(" ")[0];
+		this.renterLastName = this.renterName.split(" ")[1];
+
+		updateRenterMovies(renterFirstName, renterLastName);
+		
+
+		//    	
+		//	    List<Account> accounts = bank.getAccountListFromClientLastname(this.sourceClientName);
+		//	    this.sourceAccountDescriptions = new ArrayList<String>();
+		//		for (Account account : accounts) {
+		//			this.sourceAccountDescriptions.add(account.getDescription());
+		//		}
+	}
+
+
 	public void updateStore(ValueChangeEvent event) {
-    	this.storeID = (long)event.getNewValue();
-//			
-//	    List<Account> accounts = bank.getAccountListFromClientLastname(this.destinationClientName);
-//	    this.destinationAccountDescriptions = new ArrayList<String>();
-//		for (Account account : accounts) {
-//			this.destinationAccountDescriptions.add(account.getDescription());
-//		}
-    }
-    
-    public String performRental() {
-    	
-    	try {
+		this.storeID = (long)event.getNewValue();
+		//			
+		//	    List<Account> accounts = bank.getAccountListFromClientLastname(this.destinationClientName);
+		//	    this.destinationAccountDescriptions = new ArrayList<String>();
+		//		for (Account account : accounts) {
+		//			this.destinationAccountDescriptions.add(account.getDescription());
+		//		}
+	}
+	
+	public void updateRenterMovie(ValueChangeEvent event) {
+		this.renterMovieName = (String)event.getNewValue();
+		//			
+		//	    List<Account> accounts = bank.getAccountListFromClientLastname(this.destinationClientName);
+		//	    this.destinationAccountDescriptions = new ArrayList<String>();
+		//		for (Account account : accounts) {
+		//			this.destinationAccountDescriptions.add(account.getDescription());
+		//		}
+	}
+
+	public void updateMovie(ValueChangeEvent event) {
+		this.movieName = (String)event.getNewValue();
+		//			
+		//	    List<Account> accounts = bank.getAccountListFromClientLastname(this.destinationClientName);
+		//	    this.destinationAccountDescriptions = new ArrayList<String>();
+		//		for (Account account : accounts) {
+		//			this.destinationAccountDescriptions.add(account.getDescription());
+		//		}
+	}
+
+
+	public String performRental() {
+
+		try {
 			Renter renter = movieRentalStore.getRenter(renterFirstName, renterLastName);
 			Store store = movieRentalStore.getStore(storeID);
-			
+			Movie movie = movieRentalStore.getMovie(movieName);
+
 			movieRentalStore.rentMovie(store, renter, movie);
 			this.rentalResult="Success!";
 		} catch (Exception e) {
@@ -251,14 +302,17 @@ public class TransferBean
 
 		return "showRentalResult"; //  the String value returned represents the outcome used by the navigation handler to determine what page to display next.
 	} 
-    
-    public String performReturnal() {
-    	
-    	try {
+
+
+
+	public String performReturnal() {
+
+		try {
 			Renter renter = movieRentalStore.getRenter(renterFirstName, renterLastName);
 			Store store = movieRentalStore.getStore(storeID);
-			
-			movieRentalStore.returnMovie(store, renter, movie);
+			Movie renterMovie = movieRentalStore.getMovie(renterMovieName);
+
+			movieRentalStore.returnMovie(store, renter, renterMovie);
 			this.rentalResult="Success!";
 		} catch (Exception e) {
 			e.printStackTrace();
