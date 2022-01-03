@@ -22,19 +22,6 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 
 	@Override
 	public Renter getRenter(String lastNameRenter, String firstNameRenter) {
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println(lastNameRenter+firstNameRenter);
-		System.out.println(lastNameRenter+firstNameRenter);
-		System.out.println(lastNameRenter+firstNameRenter);
-		System.out.println(lastNameRenter+firstNameRenter);
-		System.out.println(lastNameRenter+firstNameRenter);
-		System.out.println(lastNameRenter+firstNameRenter);
-		System.out.println();
-		System.out.println();
-		System.out.println();
-		System.out.println();
 		Query query = em.createQuery("FROM Renter r WHERE r.lastname=:firstName AND r.firstname=:lastName");
 		query.setParameter("firstName", firstNameRenter);
 		query.setParameter("lastName", lastNameRenter);
@@ -49,7 +36,7 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 		return (List<Movie>) em.createQuery("SELECT movies FROM Renter r WHERE r.lastname=:firstname AND r.firstname=:lastname").setParameter("lastname", lastNameRenter).setParameter("firstname", firstNameRenter).getResultList();
 	}
 
-	public void rentMovie(Store store, Renter renter, Movie movie) throws Exception {
+	public String rentMovie(Store store, Renter renter, Movie movie) throws Exception {
 
 		Employee employee = getRandomEmployee();
 
@@ -61,10 +48,11 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 		em.persist(movie);
 		em.persist(employee);
 		renter.rentMovie(movie);
-		store.rentMovie(movie);
+		
+		return employee.getFirstname()+" "+employee.getLastname();
 	}
 
-	public void returnMovie(Store store, Renter renter, Movie movie) throws Exception {
+	public String returnMovie(Store store, Renter renter, Movie movie) throws Exception {
 
 		Employee employee = getRandomEmployee();
 
@@ -75,8 +63,9 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 		em.persist(renter);
 		em.persist(movie);
 		em.persist(employee);
-		renter.returnMovie(movie);
-		store.returnMovie(movie);
+		renter.returnMovie(movie);		
+
+		return employee.getFirstname()+" "+employee.getLastname();
 	}
 
 
@@ -123,5 +112,12 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 	public Movie getMovie(String title) {
 		// TODO Auto-generated method stub
 		return (Movie) em.createQuery("FROM Movie m WHERE m.title=:title").setParameter("title", title).getSingleResult();
+	}
+
+	@Override
+	public void removeMovie(Movie movieToRemove) {
+		// TODO Auto-generated method stub
+		em.remove(movieToRemove);
+		
 	}
 }

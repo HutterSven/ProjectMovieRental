@@ -37,6 +37,17 @@ public class TransferBean
 	private long storeID;
 	private Movie movie;
 	private String movieName;
+	private String removeResult;
+
+	public String getRemoveResult() {
+		return removeResult;
+	}
+
+
+	public void setRemoveResult(String removeResult) {
+		this.removeResult = removeResult;
+	}
+
 
 	@PostConstruct
 	public void initialize() throws NamingException {
@@ -293,10 +304,10 @@ public class TransferBean
 			Renter renter = movieRentalStore.getRenter(renterFirstName, renterLastName);
 			Store store = movieRentalStore.getStore(storeID);
 			Movie movie = movieRentalStore.getMovie(movieName);
-
-			movieRentalStore.rentMovie(store, renter, movie);
-			this.rentalResult="Success!";
+			String employeeName = movieRentalStore.rentMovie(store, renter, movie);
+			this.rentalResult=employeeName+" rented "+movie.getTitle()+" to "+renterFirstName+" "+renterLastName;
 		} catch (Exception e) {
+			this.rentalResult = "Wasn't able to rent movie";
 			e.printStackTrace();
 		}
 
@@ -312,12 +323,28 @@ public class TransferBean
 			Store store = movieRentalStore.getStore(storeID);
 			Movie renterMovie = movieRentalStore.getMovie(renterMovieName);
 
-			movieRentalStore.returnMovie(store, renter, renterMovie);
-			this.rentalResult="Success!";
+			String employeeName = movieRentalStore.returnMovie(store, renter, renterMovie);
+			this.rentalResult=renterFirstName+" "+renterLastName+" returned "+movie.getTitle()+" to "+employeeName;
 		} catch (Exception e) {
+			this.rentalResult = "Wasn't able to return movie";
 			e.printStackTrace();
 		}
 
 		return "showRentalResult"; //  the String value returned represents the outcome used by the navigation handler to determine what page to display next.
+	} 
+	
+	public String performRemoveMovie() {
+
+		try {
+			Movie movieToRemove = movieRentalStore.getMovie(movieName);
+
+			movieRentalStore.removeMovie(movieToRemove);
+			this.removeResult=movieName+" has been removed from inventory.";
+		} catch (Exception e) {
+			this.removeResult="Haven't been able to remove movie";
+			e.printStackTrace();
+		}
+
+		return "showRemoveResult"; //  the String value returned represents the outcome used by the navigation handler to determine what page to display next.
 	} 
 }

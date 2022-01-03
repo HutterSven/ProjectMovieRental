@@ -57,4 +57,28 @@
 			<to-view-id>/welcomeMovieRental.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<display-name>showRemoveResult.xhtml</display-name>
+		<from-view-id>/showRemoveResult.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>welcomeMovieRental</from-outcome>
+			<to-view-id>/welcomeMovieRental.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>welcomeMovieRental.xhtml</display-name>
+		<from-view-id>/welcomeMovieRental.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>removeMovie</from-outcome>
+			<to-view-id>/removeMovie.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>removeMovie.xhtml</display-name>
+		<from-view-id>/removeMovie.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>#{transferBean.removeMovie}</from-outcome>
+			<to-view-id>/showRemoveResult.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

@@ -22,13 +22,15 @@ public interface MovieRentalStore {
 	
 	public List<Movie> getRentersMovies(String lastNameRenter, String firstNameRenter);
 
-	void rentMovie(Store store, Renter renter, Movie movie) throws Exception;
+	String rentMovie(Store store, Renter renter, Movie movie) throws Exception;
 
-	void returnMovie(Store store, Renter renter, Movie movie) throws Exception;
+	String returnMovie(Store store, Renter renter, Movie movie) throws Exception;
 
 	List<Renter> getRenters();
 	
 	List<Employee> getEmployees();
 	
 	Store getStore(long storeID);
+
+	void removeMovie(Movie movieToRemove);
 }
