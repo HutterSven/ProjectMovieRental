@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name="Renter")
 public class Renter extends Person {	
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<Movie> movies;
 	
 	// constructors

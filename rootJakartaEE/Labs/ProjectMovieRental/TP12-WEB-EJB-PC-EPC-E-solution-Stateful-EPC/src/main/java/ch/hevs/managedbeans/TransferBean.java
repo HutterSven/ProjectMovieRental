@@ -69,9 +69,10 @@ public class TransferBean
 		for (Store store : stores) {
 			this.storeIDs.add(String.valueOf(store.getId()));
 		}
+		this.storeID = Long.parseLong(storeIDs.get(0));
 
 		// get movies
-		movies = movieRentalStore.getMovies();
+		movies = movieRentalStore.getStoreMovies(storeID);
 		this.movieNames = new ArrayList<String>();
 		for (Movie movie : movies) {
 			this.movieNames.add(movie.getTitle());
@@ -80,9 +81,9 @@ public class TransferBean
 
 		//get renterName
 		this.renterName = renterNames.get(0);
-
-		this.storeID = Long.parseLong(storeIDs.get(0));
-
+		this.renterFirstName = renterName.split(" ")[0];
+		this.renterLastName = renterName.split(" ")[1];
+		
 		this.movieName = movieNames.get(0);		
 
 		updateRenterMovies(renterName.split(" ")[0], renterName.split(" ")[1]);
@@ -226,7 +227,7 @@ public class TransferBean
 	}
 
 
-	public void updateRenterMovies(String firstname, String lastname) {
+	public void updateRenterMovies(String lastname, String firstname) {
 		// get movies
 		renterMovies = movieRentalStore.getRentersMovies(firstname, lastname);
 		this.renterMovieNames = new ArrayList<String>();
@@ -252,10 +253,10 @@ public class TransferBean
 
 		this.renterName = (String)event.getNewValue().toString();
 
-		this.renterFirstName = this.renterName.split(" ")[0];
-		this.renterLastName = this.renterName.split(" ")[1];
+		this.renterLastName = this.renterName.split(" ")[0];
+		this.renterFirstName = this.renterName.split(" ")[1];
 
-		updateRenterMovies(renterFirstName, renterLastName);
+		updateRenterMovies(renterLastName, renterFirstName);
 		
 
 		//    	
@@ -269,6 +270,13 @@ public class TransferBean
 
 	public void updateStore(ValueChangeEvent event) {
 		this.storeID = (long)event.getNewValue();
+		
+		this.movies = movieRentalStore.getStoreMovies(storeID);
+
+		this.movieNames = new ArrayList<String>();
+		for (Movie movie : movies) {
+			this.movieNames.add(movie.getTitle());
+		}
 		//			
 		//	    List<Account> accounts = bank.getAccountListFromClientLastname(this.destinationClientName);
 		//	    this.destinationAccountDescriptions = new ArrayList<String>();
@@ -301,7 +309,7 @@ public class TransferBean
 	public String performRental() {
 
 		try {
-			Renter renter = movieRentalStore.getRenter(renterFirstName, renterLastName);
+			Renter renter = movieRentalStore.getRenter(renterLastName, renterFirstName);
 			Store store = movieRentalStore.getStore(storeID);
 			Movie movie = movieRentalStore.getMovie(movieName);
 			String employeeName = movieRentalStore.rentMovie(store, renter, movie);
@@ -319,12 +327,12 @@ public class TransferBean
 	public String performReturnal() {
 
 		try {
-			Renter renter = movieRentalStore.getRenter(renterFirstName, renterLastName);
+			Renter renter = movieRentalStore.getRenter(renterLastName, renterFirstName);
 			Store store = movieRentalStore.getStore(storeID);
 			Movie renterMovie = movieRentalStore.getMovie(renterMovieName);
 
 			String employeeName = movieRentalStore.returnMovie(store, renter, renterMovie);
-			this.rentalResult=renterFirstName+" "+renterLastName+" returned "+movie.getTitle()+" to "+employeeName;
+			this.rentalResult=renterFirstName+" "+renterLastName+" returned "+renterMovie.getTitle()+" to "+employeeName;
 		} catch (Exception e) {
 			this.rentalResult = "Wasn't able to return movie";
 			e.printStackTrace();
@@ -337,11 +345,11 @@ public class TransferBean
 
 		try {
 			Movie movieToRemove = movieRentalStore.getMovie(movieName);
-
-			movieRentalStore.removeMovie(movieToRemove);
-			this.removeResult=movieName+" has been removed from inventory.";
+			Store ownerStore = movieRentalStore.getStore(storeID);
+			movieRentalStore.removeMovie(movieToRemove, ownerStore);
+			this.removeResult=movieName+" has been removed from inventory of store " + storeID + ".";
 		} catch (Exception e) {
-			this.removeResult="Haven't been able to remove movie";
+			this.removeResult="unable to remove movie";
 			e.printStackTrace();
 		}
 

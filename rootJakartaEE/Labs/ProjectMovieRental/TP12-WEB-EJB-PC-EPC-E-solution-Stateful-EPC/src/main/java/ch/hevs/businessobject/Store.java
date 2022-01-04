@@ -23,7 +23,7 @@ public class Store {
 	@OneToMany
 	private List<Employee> employees;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.REMOVE)
 	private List<Movie> movies;
 	
 	public long getId() {
@@ -67,6 +67,10 @@ public class Store {
 		this.address = address;
 		this.movies = movies;
 		this.employees = employees;
+	}
+	
+	public void removeMovie(Movie movieToRemove) {
+		this.movies.remove(movieToRemove);
 	}
 	
 	@Embedded

@@ -22,7 +22,7 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 
 	@Override
 	public Renter getRenter(String lastNameRenter, String firstNameRenter) {
-		Query query = em.createQuery("FROM Renter r WHERE r.lastname=:firstName AND r.firstname=:lastName");
+		Query query = em.createQuery("FROM Renter r WHERE r.lastname=:lastName AND r.firstname=:firstName");
 		query.setParameter("firstName", firstNameRenter);
 		query.setParameter("lastName", lastNameRenter);
 
@@ -33,7 +33,7 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 
 	@SuppressWarnings("unchecked")
 	public List<Movie> getRentersMovies(String lastNameRenter, String firstNameRenter) {
-		return (List<Movie>) em.createQuery("SELECT movies FROM Renter r WHERE r.lastname=:firstname AND r.firstname=:lastname").setParameter("lastname", lastNameRenter).setParameter("firstname", firstNameRenter).getResultList();
+		return (List<Movie>) em.createQuery("SELECT movies FROM Renter r WHERE r.lastname=:lastname AND r.firstname=:firstname").setParameter("lastname", lastNameRenter).setParameter("firstname", firstNameRenter).getResultList();
 	}
 
 	public String rentMovie(Store store, Renter renter, Movie movie) throws Exception {
@@ -110,14 +110,20 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 
 	@Override
 	public Movie getMovie(String title) {
-		// TODO Auto-generated method stub
 		return (Movie) em.createQuery("FROM Movie m WHERE m.title=:title").setParameter("title", title).getSingleResult();
 	}
 
 	@Override
-	public void removeMovie(Movie movieToRemove) {
-		// TODO Auto-generated method stub
-		em.remove(movieToRemove);
-		
+	public void removeMovie(Movie movieToRemove, Store ownerStore) {
+		ownerStore.removeMovie(movieToRemove);
+		em.persist(ownerStore);
 	}
+
+	@Override
+	public List<Movie> getStoreMovies(long storeID) {
+		return em.createQuery("Select s.movies FROM Store s where s.id=:storeID").setParameter("storeID", storeID).getResultList();
+	}
+	
+
+	
 }

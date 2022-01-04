@@ -18,6 +18,8 @@ public interface MovieRentalStore {
 	
 	List<Movie> getMovies();
 	
+	List<Movie> getStoreMovies(long storeID);
+	
 	Movie getMovie(String title);
 	
 	public List<Movie> getRentersMovies(String lastNameRenter, String firstNameRenter);
@@ -32,5 +34,5 @@ public interface MovieRentalStore {
 	
 	Store getStore(long storeID);
 
-	void removeMovie(Movie movieToRemove);
+	void removeMovie(Movie movieToRemove, Store ownerStore);
 }

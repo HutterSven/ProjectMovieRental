@@ -11,16 +11,11 @@
     	<h:form>
         	<h:outputLabel value="Transfer Information:"></h:outputLabel>
         	<br></br>
-        	<h:panelGrid columns="5">
+        	<h:panelGrid columns="5" row="8">
         		<h:outputText value="Renter: "></h:outputText>
         		<h:outputText value="Name: "></h:outputText>
 	        	<h:selectOneMenu value="#{transferBean.renterName}" valueChangeListener="#{transferBean.updateRenter}" onchange="submit()">
 	        		<f:selectItems value="#{transferBean.renterNames}"/>
-	        	</h:selectOneMenu>
-	        	<h:outputText value="Store: "></h:outputText>
-        		<h:outputText value="Store ID: "></h:outputText>
-	        	<h:selectOneMenu value="#{transferBean.storeID}" valueChangeListener="#{transferBean.updateStore}" onchange="submit()">
-	        		<f:selectItems value="#{transferBean.storeIDs}"/>
 	        	</h:selectOneMenu>
 	        	<h:outputText value="Movie: "></h:outputText>
 	        	<h:outputText value="Movie Name: "></h:outputText>
