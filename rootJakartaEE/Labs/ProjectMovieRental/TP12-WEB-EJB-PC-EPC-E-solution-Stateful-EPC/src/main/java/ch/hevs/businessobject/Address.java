@@ -7,7 +7,7 @@ import javax.persistence.Table;
 @Embeddable
 @Table(name="Address")
 public class Address {
-	
+
 	public String getStreet() {
 		return street;
 	}
@@ -32,12 +32,13 @@ public class Address {
 	private String city;
 	@Column(name="postal")
 	private int postal;
-	
 
-	
+
+
 	// constructors
 	public Address() {
 	}
+
 	public Address(int postal, String city, String street) {
 		this.city = city;
 		this.postal = postal;

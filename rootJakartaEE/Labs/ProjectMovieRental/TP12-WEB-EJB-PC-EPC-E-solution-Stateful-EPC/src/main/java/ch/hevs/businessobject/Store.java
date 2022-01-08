@@ -73,6 +73,10 @@ public class Store {
 		this.movies.remove(movieToRemove);
 	}
 	
+	public void addMovie(Movie movieToAdd) {
+		this.movies.add(movieToAdd);
+	}
+	
 	@Embedded
 	private Address address;
 	

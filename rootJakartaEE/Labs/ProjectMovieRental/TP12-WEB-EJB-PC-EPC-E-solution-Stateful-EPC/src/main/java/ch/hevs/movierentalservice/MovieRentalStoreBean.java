@@ -48,7 +48,9 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 		em.persist(renter);
 		em.persist(movie);
 		em.persist(employee);
+		em.persist(store);
 		renter.rentMovie(movie);
+		store.removeMovie(movie);
 		
 		return employee.getFirstname()+" "+employee.getLastname();
 	}
@@ -64,7 +66,9 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 		em.persist(renter);
 		em.persist(movie);
 		em.persist(employee);
-		renter.returnMovie(movie);		
+		em.persist(store);
+		renter.returnMovie(movie);
+		store.addMovie(movie);
 
 		return employee.getFirstname()+" "+employee.getLastname();
 	}
