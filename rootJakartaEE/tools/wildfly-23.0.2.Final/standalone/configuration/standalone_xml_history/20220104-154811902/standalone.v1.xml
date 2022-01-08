@@ -555,7 +555,7 @@
     </socket-binding-group>
     <deployments>
         <deployment name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war" runtime-name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war">
-            <content sha1="b299b0299e36e4f85f210ee69564bf2b660a2291"/>
+            <content sha1="3ee0cadabf8049227e4b3d7cf09c25915dc57e5a"/>
         </deployment>
     </deployments>
 </server>

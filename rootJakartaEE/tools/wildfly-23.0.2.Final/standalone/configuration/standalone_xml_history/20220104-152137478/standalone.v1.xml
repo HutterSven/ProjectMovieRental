@@ -159,9 +159,19 @@
                         <password>sa</password>
                     </security>
                 </datasource>
+                <datasource jndi-name="java:/labsDS" pool-name="labsDS" enabled="true" use-java-context="true">
+                    <connection-url>jdbc:hsqldb:hsql://localhost/DB</connection-url>
+                    <driver>hsqldb</driver>
+                    <security>
+                        <user-name>sa</user-name>
+                    </security>
+                </datasource>
                 <drivers>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+                    </driver>
+                    <driver name="hsqldb" module="org.hsqldb">
+                        <driver-class>org.hsqldb.jdbcDriver</driver-class>
                     </driver>
                 </drivers>
             </datasources>
@@ -543,4 +553,9 @@
             <remote-destination host="${jboss.mail.server.host:localhost}" port="${jboss.mail.server.port:25}"/>
         </outbound-socket-binding>
     </socket-binding-group>
+    <deployments>
+        <deployment name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war" runtime-name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war">
+            <content sha1="acaf81469ce182b98fe550933908ed7f63e23b60"/>
+        </deployment>
+    </deployments>
 </server>

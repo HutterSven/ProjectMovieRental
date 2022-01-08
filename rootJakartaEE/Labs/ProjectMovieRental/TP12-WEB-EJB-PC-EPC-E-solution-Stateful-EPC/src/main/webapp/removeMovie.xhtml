@@ -11,7 +11,7 @@
     	<h:form>
         	<h:outputLabel value="Transfer Information:"></h:outputLabel>
         	<br></br>
-        	<h:panelGrid columns="5" rows="8">
+        	<h:panelGrid>
 	        	<h:outputText value="Movie: "></h:outputText>
 	        	<h:outputText value="Movie Name: "></h:outputText>
 	        	<h:selectOneMenu value="#{transferBean.movieName}" valueChangeListener="#{transferBean.updateMovie}" onchange="submit()">

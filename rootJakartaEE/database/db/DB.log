@@ -1,11 +1,8 @@
 /*C3*/SET SCHEMA PUBLIC
 CONNECT USER SA
-create table Client (id bigint not null, prenom varchar(255), nom varchar(255), primary key (id))
-create table Compte (id bigint not null, description varchar(255), numero varchar(255), solde bigint, FK_CLIENT bigint, primary key (id))
-alter table Compte add constraint FKomm1pjpsvc89376n9250f6ri7 foreign key (FK_CLIENT) references Client
-create global temporary table HT_Employee (id bigint not null) 
-create global temporary table HT_Renter (id bigint not null) 
-create global temporary table HT_Person (id bigint not null) 
+DISCONNECT
+/*C4*/SET SCHEMA PUBLIC
+CONNECT USER SA
 alter table Renter_Movie drop constraint UK_e0vviaynnbiuckn6mepcapi3v
 alter table Renter_Movie add constraint UK_e0vviaynnbiuckn6mepcapi3v unique (movies_id)
 alter table Store_Employee drop constraint UK_4p5fnvdqbnovtlmsonka5e79o
@@ -13,8 +10,12 @@ alter table Store_Employee add constraint UK_4p5fnvdqbnovtlmsonka5e79o unique (e
 alter table Store_Movie drop constraint UK_3gi62claluxohvcgoxiv5ges2
 alter table Store_Movie add constraint UK_3gi62claluxohvcgoxiv5ges2 unique (movies_id)
 SET AUTOCOMMIT FALSE
-DISCONNECT
-/*C4*/SET SCHEMA PUBLIC
-CONNECT USER SA
+SET AUTOCOMMIT TRUE
+alter table Renter_Movie drop constraint UK_e0vviaynnbiuckn6mepcapi3v
+alter table Renter_Movie add constraint UK_e0vviaynnbiuckn6mepcapi3v unique (movies_id)
+alter table Store_Employee drop constraint UK_4p5fnvdqbnovtlmsonka5e79o
+alter table Store_Employee add constraint UK_4p5fnvdqbnovtlmsonka5e79o unique (employees_id)
+alter table Store_Movie drop constraint UK_3gi62claluxohvcgoxiv5ges2
+alter table Store_Movie add constraint UK_3gi62claluxohvcgoxiv5ges2 unique (movies_id)
 SET AUTOCOMMIT FALSE
 DISCONNECT

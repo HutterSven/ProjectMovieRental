@@ -553,4 +553,9 @@
             <remote-destination host="${jboss.mail.server.host:localhost}" port="${jboss.mail.server.port:25}"/>
         </outbound-socket-binding>
     </socket-binding-group>
+    <deployments>
+        <deployment name="TP13-WEB-SECURE-E-0.0.1-SNAPSHOT.war" runtime-name="TP13-WEB-SECURE-E-0.0.1-SNAPSHOT.war">
+            <content sha1="201cdd7410fd84b911cfac878006e6324c3ab44b"/>
+        </deployment>
+    </deployments>
 </server>

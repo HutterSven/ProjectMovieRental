@@ -554,8 +554,8 @@
         </outbound-socket-binding>
     </socket-binding-group>
     <deployments>
-        <deployment name="TP02-WEB-JSP-SERVLET-E-0.0.1-SNAPSHOT.war" runtime-name="TP02-WEB-JSP-SERVLET-E-0.0.1-SNAPSHOT.war">
-            <content sha1="ab420cd6ea12a04e7b900a8ef56bd8616cd5be7f"/>
+        <deployment name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war" runtime-name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war">
+            <content sha1="deb7d404d182fb2d409d47684c65d5d6c809f011"/>
         </deployment>
     </deployments>
 </server>

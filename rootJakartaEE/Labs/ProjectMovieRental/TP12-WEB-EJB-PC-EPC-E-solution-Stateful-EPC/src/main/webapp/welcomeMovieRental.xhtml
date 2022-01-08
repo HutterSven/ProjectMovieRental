@@ -11,15 +11,15 @@
 		<h:outputLabel value="Welcome to MovieRental"></h:outputLabel>
 		<br></br>
 		<h:form>
-			<h:commandLink action="rentForm">
+			<h:commandLink action="#{transferBean.reloadRent}">
 				<h:outputText value="Rent a Movie" />
 			</h:commandLink>
 			<br></br>
-			<h:commandLink action="returnForm">
+			<h:commandLink action="#{transferBean.reloadReturn}">
 				<h:outputText value="Return a Movie" />
 			</h:commandLink>
 			<br></br>
-			<h:commandLink action="removeMovie">
+			<h:commandLink action="#{transferBean.reloadRemove}">
 				<h:outputText value="Remove a Movie from inventory" />
 			</h:commandLink>
 		</h:form>

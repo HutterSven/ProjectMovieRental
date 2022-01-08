@@ -554,8 +554,8 @@
         </outbound-socket-binding>
     </socket-binding-group>
     <deployments>
-        <deployment name="TP04-WEB-JTA-POJO-DAO-E-0.0.1-SNAPSHOT.war" runtime-name="TP04-WEB-JTA-POJO-DAO-E-0.0.1-SNAPSHOT.war">
-            <content sha1="c72696fd6b6befc8595e7c78dd6e5cc22ba5e450"/>
+        <deployment name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war" runtime-name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war">
+            <content sha1="88f0636af3975b7e2fa065e91a8a06ad995d89fe"/>
         </deployment>
     </deployments>
 </server>

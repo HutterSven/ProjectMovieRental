@@ -31,7 +31,6 @@
         <extension module="org.wildfly.extension.elytron"/>
         <extension module="org.wildfly.extension.health"/>
         <extension module="org.wildfly.extension.io"/>
-        <extension module="org.wildfly.extension.messaging-activemq"/>
         <extension module="org.wildfly.extension.metrics"/>
         <extension module="org.wildfly.extension.microprofile.config-smallrye"/>
         <extension module="org.wildfly.extension.microprofile.jwt-smallrye"/>
@@ -215,10 +214,6 @@
                 <stateful default-access-timeout="5000" cache-ref="simple" passivation-disabled-cache-ref="simple"/>
                 <singleton default-access-timeout="5000"/>
             </session-bean>
-            <mdb>
-                <resource-adapter-ref resource-adapter-name="${ejb.resource-adapter-name:activemq-ra.rar}"/>
-                <bean-instance-pool-ref pool-name="mdb-strict-max-pool"/>
-            </mdb>
             <pools>
                 <bean-instance-pools>
                     <strict-max-pool name="mdb-strict-max-pool" derive-size="from-cpu-count" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
@@ -441,30 +436,6 @@
                 <smtp-server outbound-socket-binding-ref="mail-smtp"/>
             </mail-session>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:messaging-activemq:13.0">
-            <server name="default">
-                <security-setting name="#">
-                    <role name="guest" send="true" consume="true" create-non-durable-queue="true" delete-non-durable-queue="true"/>
-                </security-setting>
-                <address-setting name="#" dead-letter-address="jms.queue.DLQ" expiry-address="jms.queue.ExpiryQueue" max-size-bytes="10485760" page-size-bytes="2097152" message-counter-history-day-limit="10"/>
-                <http-connector name="http-connector" socket-binding="http" endpoint="http-acceptor"/>
-                <http-connector name="http-connector-throughput" socket-binding="http" endpoint="http-acceptor-throughput">
-                    <param name="batch-delay" value="50"/>
-                </http-connector>
-                <in-vm-connector name="in-vm" server-id="0"/>
-                <http-acceptor name="http-acceptor" http-listener="default"/>
-                <http-acceptor name="http-acceptor-throughput" http-listener="default">
-                    <param name="batch-delay" value="50"/>
-                    <param name="direct-deliver" value="false"/>
-                </http-acceptor>
-                <in-vm-acceptor name="in-vm" server-id="0"/>
-                <jms-queue name="ExpiryQueue" entries="java:/jms/queue/ExpiryQueue"/>
-                <jms-queue name="DLQ" entries="java:/jms/queue/DLQ"/>
-                <connection-factory name="InVmConnectionFactory" entries="java:/ConnectionFactory" connectors="in-vm"/>
-                <connection-factory name="RemoteConnectionFactory" entries="java:jboss/exported/jms/RemoteConnectionFactory" connectors="http-connector"/>
-                <pooled-connection-factory name="activemq-ra" entries="java:/JmsXA java:jboss/DefaultJMSConnectionFactory" connectors="in-vm" transaction="xa"/>
-            </server>
-        </subsystem>
         <subsystem xmlns="urn:wildfly:metrics:1.0" security-enabled="false" exposed-subsystems="*" prefix="${wildfly.metrics.prefix:wildfly}"/>
         <subsystem xmlns="urn:wildfly:microprofile-config-smallrye:1.0"/>
         <subsystem xmlns="urn:wildfly:microprofile-jwt-smallrye:1.0"/>
@@ -583,8 +554,8 @@
         </outbound-socket-binding>
     </socket-binding-group>
     <deployments>
-        <deployment name="TP14-MDB-E-0.0.1-SNAPSHOT.war" runtime-name="TP14-MDB-E-0.0.1-SNAPSHOT.war">
-            <content sha1="5e2e064320f4fda2e7827bc97d1de3b08e792d3b"/>
+        <deployment name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war" runtime-name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war">
+            <content sha1="18371f7aafa26366487c2bc1c1a87be9246e24f5"/>
         </deployment>
     </deployments>
 </server>

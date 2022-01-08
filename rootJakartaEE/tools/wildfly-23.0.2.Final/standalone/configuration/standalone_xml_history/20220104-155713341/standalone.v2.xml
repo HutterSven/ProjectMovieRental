@@ -554,8 +554,8 @@
         </outbound-socket-binding>
     </socket-binding-group>
     <deployments>
-        <deployment name="TP05-WEB-STATELESS-DAO-E-0.0.1-SNAPSHOT.war" runtime-name="TP05-WEB-STATELESS-DAO-E-0.0.1-SNAPSHOT.war">
-            <content sha1="0026e0151bbd5e98433190e3d4ef1c3c23b3060c"/>
+        <deployment name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war" runtime-name="TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT.war">
+            <content sha1="313ba38aa34f5d905d08b37c7b31574a7de236fc"/>
         </deployment>
     </deployments>
 </server>

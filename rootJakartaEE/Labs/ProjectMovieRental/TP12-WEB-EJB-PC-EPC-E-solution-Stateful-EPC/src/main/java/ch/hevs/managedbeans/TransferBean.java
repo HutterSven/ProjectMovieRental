@@ -48,6 +48,10 @@ public class TransferBean
 		InitialContext ctx = new InitialContext();
 		movieRentalStore = (MovieRentalStore) ctx.lookup("java:global/TP12-WEB-EJB-PC-EPC-E-0.0.1-SNAPSHOT/MovieRentalStoreBean!ch.hevs.movierentalservice.MovieRentalStore");
 
+		reload();
+	}
+
+	public void reload() {
 		// get renters
 		renters = movieRentalStore.getRenters();
 		this.renterNames = new ArrayList<String>();
@@ -69,12 +73,17 @@ public class TransferBean
 		for (Movie movie : movies) {
 			this.movieNames.add(movie.getTitle());
 		}
-		
+
 		this.renterName = renterNames.get(0);
 		this.renterFirstName = renterName.split(" ")[0];
 		this.renterLastName = renterName.split(" ")[1];
 
-		this.movieName = movieNames.get(0);		
+		try {
+			this.movieName = movieNames.get(0);
+		} catch (Exception e) {
+			this.movieName = null;
+			e.printStackTrace();
+		}		
 
 		updateRenterMovies(renterName.split(" ")[0], renterName.split(" ")[1]);
 	}
@@ -121,7 +130,20 @@ public class TransferBean
 		this.movieName = (String)event.getNewValue();
 	}
 
+	public String reloadRent() {
+		reload();
+		return "rentForm";
+	}
 
+	public String reloadReturn() {
+		reload();
+		return "returnForm";
+	}
+
+	public String reloadRemove() {
+		reload();
+		return "removeMovie";
+	}
 	public String performRental() {
 
 		try {
@@ -136,7 +158,7 @@ public class TransferBean
 		}
 
 		return "showRentalResult"; 
-		
+
 	} 
 
 
