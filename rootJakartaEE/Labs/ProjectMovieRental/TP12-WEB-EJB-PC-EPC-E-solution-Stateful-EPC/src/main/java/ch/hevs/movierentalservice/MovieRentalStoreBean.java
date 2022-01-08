@@ -22,6 +22,7 @@ public class MovieRentalStoreBean implements MovieRentalStore {
 
 	@Override
 	public Renter getRenter(String lastNameRenter, String firstNameRenter) {
+		System.out.println(lastNameRenter+firstNameRenter);
 		Query query = em.createQuery("FROM Renter r WHERE r.lastname=:lastName AND r.firstname=:firstName");
 		query.setParameter("firstName", firstNameRenter);
 		query.setParameter("lastName", lastNameRenter);

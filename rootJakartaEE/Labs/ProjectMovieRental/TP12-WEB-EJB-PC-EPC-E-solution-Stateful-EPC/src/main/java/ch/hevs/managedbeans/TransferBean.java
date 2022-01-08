@@ -38,6 +38,7 @@ public class TransferBean
 	private Movie movie;
 	private String movieName;
 	private String removeResult;
+	private String returnalResult;
 
 	public String getRemoveResult() {
 		return removeResult;
@@ -229,7 +230,7 @@ public class TransferBean
 
 	public void updateRenterMovies(String lastname, String firstname) {
 		// get movies
-		renterMovies = movieRentalStore.getRentersMovies(firstname, lastname);
+		renterMovies = movieRentalStore.getRentersMovies(lastname, firstname);
 		this.renterMovieNames = new ArrayList<String>();
 		for (Movie movie : renterMovies) {
 			this.renterMovieNames.add(movie.getTitle());
@@ -253,8 +254,8 @@ public class TransferBean
 
 		this.renterName = (String)event.getNewValue().toString();
 
-		this.renterLastName = this.renterName.split(" ")[0];
-		this.renterFirstName = this.renterName.split(" ")[1];
+		this.renterFirstName = this.renterName.split(" ")[0];
+		this.renterLastName = this.renterName.split(" ")[1];
 
 		updateRenterMovies(renterLastName, renterFirstName);
 		
@@ -332,15 +333,25 @@ public class TransferBean
 			Movie renterMovie = movieRentalStore.getMovie(renterMovieName);
 
 			String employeeName = movieRentalStore.returnMovie(store, renter, renterMovie);
-			this.rentalResult=renterFirstName+" "+renterLastName+" returned "+renterMovie.getTitle()+" to "+employeeName;
+			this.returnalResult=renterFirstName+" "+renterLastName+" returned "+renterMovie.getTitle()+" to "+employeeName;
 		} catch (Exception e) {
-			this.rentalResult = "Wasn't able to return movie";
+			this.returnalResult = "Wasn't able to return movie";
 			e.printStackTrace();
 		}
 
-		return "showRentalResult"; //  the String value returned represents the outcome used by the navigation handler to determine what page to display next.
+		return "showReturnalResult"; //  the String value returned represents the outcome used by the navigation handler to determine what page to display next.
 	} 
 	
+	public String getReturnalResult() {
+		return returnalResult;
+	}
+
+
+	public void setReturnalResult(String returnalResult) {
+		this.returnalResult = returnalResult;
+	}
+
+
 	public String performRemoveMovie() {
 
 		try {
