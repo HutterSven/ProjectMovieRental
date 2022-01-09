@@ -30,7 +30,7 @@ public class Movie {
 	@Column(name="year")
 	private int year;
 	@Column(name="medium")
-	private String Medium;
+	private String medium;
 	
 	@ManyToMany
 	private List<Category> categories;
@@ -38,11 +38,12 @@ public class Movie {
 	public Movie() {
 		categories = new ArrayList<Category>();
 	}
-	public Movie(String title, int length, int year, List<Category> categories) {
+	public Movie(String title, int length, int year, List<Category> categories, String medium) {
 		this.title = title;
 		this.length = length;
 		this.year = year;
 		this.categories = categories;
+		this.medium = medium;
 	}
 	
 	

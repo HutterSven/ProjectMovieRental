@@ -35,4 +35,6 @@ public interface MovieRentalStore {
 	Store getStore(long storeID);
 
 	void removeMovie(Movie movieToRemove, Store ownerStore);
+	
+	void populateDB();
 }

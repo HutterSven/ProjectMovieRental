@@ -52,6 +52,8 @@ public class TransferBean
 	}
 
 	public void reload() {
+		try {
+		
 		// get renters
 		renters = movieRentalStore.getRenters();
 		this.renterNames = new ArrayList<String>();
@@ -86,6 +88,16 @@ public class TransferBean
 		}		
 
 		updateRenterMovies(renterName.split(" ")[0], renterName.split(" ")[1]);
+		
+		} catch (IndexOutOfBoundsException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public String populateDB() {
+		movieRentalStore.populateDB();
+		
+		return "welcomeMovieRental";
 	}
 
 
